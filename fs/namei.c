@@ -292,14 +292,14 @@ static int check_acl(struct inode *inode, int mask)
 /*
  * This does the basic permission checking
  */
-static int acl_permission_check(struct inode *inode, int mask)
+static int acl_permission_check(struct inode *inode, int mask)  // mask是期待的权限
 {
 	unsigned int mode = inode->i_mode;
 
-	if (likely(uid_eq(current_fsuid(), inode->i_uid)))
+	if (likely(uid_eq(current_fsuid(), inode->i_uid)))  // 文件属主与进程euid相同
 		mode >>= 6;
 	else {
-		if (IS_POSIXACL(inode) && (mode & S_IRWXG)) {
+		if (IS_POSIXACL(inode) && (mode & S_IRWXG)) {  // 检查节点是否有ACL属性，以及mask（组属性）是否为0
 			int error = check_acl(inode, mask);
 			if (error != -EAGAIN)
 				return error;

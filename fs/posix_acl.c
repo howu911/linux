@@ -344,7 +344,7 @@ EXPORT_SYMBOL(posix_acl_from_mode);
  * by the acl. Returns -E... otherwise.
  */
 int
-posix_acl_permission(struct inode *inode, const struct posix_acl *acl, int want)
+posix_acl_permission(struct inode *inode, const struct posix_acl *acl, int want)  // acl权限判断
 {
 	const struct posix_acl_entry *pa, *pe, *mask_obj;
 	int found = 0;
